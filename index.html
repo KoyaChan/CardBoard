@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="cardsModule">
+<head>
+    <meta lang="ja">
+    <meta charaset="utf-8">
+    <title>angular test</title>
+    <link href="./css/cardsModule.css" rel="stylesheet">
+</head>
+<body>
+    <div ng-controller="cardsController">
+    <p>{{"yep" + "!"}}</p>
+    <p>{{teststring}}</p>
+    <table>
+        <tr ng-repeat="raw in raws">
+            <td ng-repeat="card in raw.data">
+                <div id="{{card.view()}}" ng-click="onClick()">{{card.text()}}</div>
+            </td>
+        </tr>
+    </table>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+    <script src="./scripts/cardsModule.js"></script>
+</body>
+</html>
