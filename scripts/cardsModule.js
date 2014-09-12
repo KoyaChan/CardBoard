@@ -1,14 +1,16 @@
 angular.module('cardsModule', [])
-    .value('cardPics', ["card1", "card2", "card3", "card4", "card5", "card6",
+    .value('CARD_PICS', ["card1", "card2", "card3", "card4", "card5", "card6",
                         "card7", "card8", "card9", "card10", "card11", "card12"])
+                        
+    .value('CARD_BACK_PIC', "backsize")
 
-    .factory('cardsConfig', ['cardPics', function (cardPics) {
+    .factory('cardsConfig', function (CARD_PICS) {
         this.numCols = 3;
-        this.numRaws = cardPics.length / this.numCols;
+        this.numRaws = CARD_PICS.length / this.numCols;
         return this;
-    }])
+    })
 
-    .factory('cards', ['cardPics', 'cardsConfig', function (cardPics, cardsConfig) {
+    .factory('cards', function (CARD_PICS, CARD_BACK_PIC, cardsConfig) {
         var cardsArray = [],
             raw,
             column,
@@ -23,13 +25,13 @@ angular.module('cardsModule', [])
                     toggleSide: function () {
                         this.foreside = !this.foreside;
                     },
-                    text: function () {
+                    resource: function () {
                         if (this.foreside) {
-                            return this.picId + " " + this.pic;
+                            return this.pic;
                         }
-                        return "backSide";
+                        return CARD_BACK_PIC;
                     },
-                    view: function () {
+                    class: function () {
                         if (this.foreside) {
                             return "card-front";
                         }
@@ -40,15 +42,15 @@ angular.module('cardsModule', [])
 
         for (raw = 0; raw < cardsConfig.numRaws; raw++) {
             for (column = 0; column < cardsConfig.numCols; column++) {
-                cardsArray.push(new CardObj(raw, column, cardPics[idx], idx, true));
+                cardsArray.push(new CardObj(raw, column, CARD_PICS[idx], idx, true));
                 idx++;
             }
         }
 
         return cardsArray;
-    }])
+    })
 
-    .controller('cardsController', ['$scope', 'cards', 'cardsConfig', function ($scope, cards, cardsConfig) {
+    .controller('cardsController', function ($scope, cards, cardsConfig) {
         $scope.testString = "xxxxxx";
         var raws = new Array(cardsConfig.numRaws),
             i,
@@ -84,4 +86,4 @@ angular.module('cardsModule', [])
         $scope.onClick = function () {
             this.card.toggleSide();
         };
-    }]);
+    });

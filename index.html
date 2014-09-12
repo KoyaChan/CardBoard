@@ -13,7 +13,7 @@
     <table>
         <tr ng-repeat="raw in raws">
             <td ng-repeat="card in raw.data">
-                <div id="{{card.view()}}" ng-click="onClick()">{{card.text()}}</div>
+                <div id="{{card.class()}}" ng-click="onClick()">{{card.resource()}}</div>
             </td>
         </tr>
     </table>
