@@ -8,6 +8,11 @@ body{
     background-color: gray
 }
 
+#card{
+    width: 60px;
+    height: 90px;
+}
+
 #card-back{
     width: 90px;
     height: 90px;
